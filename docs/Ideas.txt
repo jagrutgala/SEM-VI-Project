@@ -1,0 +1,85 @@
+IDEA 1: Concentration Games App (Web/ Android)
+    memory game - display a bunch of items on screen then ask if this was on the screen
+    show a sequence/ pattern and ask the user to input the same
+    math game - fast math game (which of the operations will give the same result)
+    reaction game - f1 start light reaction test
+    // display bunch of images and have difference
+
+IDEA 2: Maths Worksheet Generator (Web)
+    Generate maths questions
+    generation based on difficulty
+    4 Operations -> +, -, *, / 
+    Fractors: LCM, HCF
+    Percentage: of, increase, decrease
+    *Equation: [
+        1 variable equations: 1 step, 2step
+        substitution: 2 variables equation
+        quadratic
+        linear equation with 2 variables
+    ]
+    Geometry: unit conversion: time, length, weight
+    *Speed distance time
+    *Pobability: simple events (card, dice, balls in the bag)
+    *Statistics: mean, median, mode (data)
+    Simple Interest, Compound Interest
+
+IDEA 3: 
+
+
+
+
+
+
+
+
+Question Generation from paragraph (NLP) [continue previous project]
+Mathematical Equation Generator
+Recipe finder from an input of ingredients (web scrapping)
+(computer graphics)
+Music Genre Recognition
+A tamagotchi (game)
+Maze runner
+2048 3D
+
+Game Ideas: [
+    Rocket League 2D (sasta version)
+    Concentration games: [
+        display a bunch of items on screen then ask if this was on the screen
+        // memory game card
+        show a sequence/ pattern and ask the user to input the same
+        // read text but there is a different image also
+        fast math game (which of the operations will give the same result)
+        f1 start light reaction test
+        display bunch of images and have difference
+    ]
+]
+
+====================
+Question Generation Math Problems
+====================
+    Topics: [ *= Problem
+        4 Operations -> +, -, *, / 
+        Fractors: LCM, HCF
+        Percentage: of, increase, decrease
+        *Equation: [
+            1 variable equations: 1 step, 2step
+            substitution: 2 variables equation
+            quadratic
+            linear equation with 2 variables
+        ]
+        Geometry: unit conversion: time, length, weight
+        *Speed distance time
+        *Pobability: simple events (card, dice, balls in the bag)
+        *Statistics: mean, median, mode (data)
+    ]
+
+    
+
+    Inputs: [
+        
+    ]
+    Key Features: [
+        genrate math question based on the input
+        download pdf of question set
+    ]
+    

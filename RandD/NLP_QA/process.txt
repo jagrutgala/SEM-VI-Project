@@ -1,0 +1,20 @@
+1. DATA PRE-PROCESSING
+remove punctutions
+remove sentences with numbers
+
+2. DATA PROCESSING
+part of speech tagging
+syntactic parsing
+Named Entity Recognition
+subject object & relation identification
+
+
+3. KEY IDENTIFICATION (Possible key values)
+adjective
+person or organization entity
+location or GPE entity
+verb
+
+4. QUESTION GENERATION
+WH question words: 
+
