@@ -1,3 +1,10 @@
+
+
+
+API "url/?type=addition?num=5"
+
+
+
 IDEA 2: Maths Worksheet Generator (Web)
     Generate maths questions
     generation based on difficulty

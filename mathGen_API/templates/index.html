@@ -10,6 +10,12 @@
     <header></header>
     <main>
         <h1>Math Gen API Home Page</h1>
+        {% if get %}
+        <p>{{ get }}</p>
+        {% endif %}
+        {% if json %}
+        <p>{{ json }}</p>
+        {% endif %}
     </main>
     <footer></footer>
 </body>

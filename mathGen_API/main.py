@@ -7,7 +7,12 @@ app.config["ENV"] = "development"
 
 @app.route("/", methods=["GET", "OPTIONS"])
 def index():
-    return render_template("index.html")
+    is_get = False
+    data = None
+    if request.method == "GET":
+        is_get = True
+    data = request.get_json()
+    return render_template("index.html", get=is_get, json=data)
 
 @app.route("/basic")
 def basicRoute():
@@ -15,8 +20,6 @@ def basicRoute():
     if data is None: return "Error 400"
     difficulty = data.get("difficulty", None)
     operator = data.get("operator", None)
-    
-
 
 # @app.route("/path", methods=["GET", "POST", "PUT", "DELETE"])
 # def template_route():

@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from typing_extensions import Self
 import random
 
@@ -11,11 +12,11 @@ class Question:
     def __repr__(self) -> str:
         return f"{self.string} \nAnswer: {self.answer}"
 
-class QuestionGenerator:
+class QuestionGenerator(ABC):
     _registry = {}
-    EAZY = "1"
-    MEDIUM = "10"
-    HARD = "100"
+    EAZY = "easy"
+    MEDIUM = "medium"
+    HARD = "hard"
 
     def __init_subclass__(cls, pre_fix, **kwargs) -> None:
         super().__init_subclass__(**kwargs)
@@ -29,6 +30,19 @@ class QuestionGenerator:
     def __init__(self, pre_fix, **kwargs) -> None:
         self.q_type = pre_fix
 
+    @abstractmethod
+    def getEasyNumbers(self) -> tuple:
+        pass
+
+    @abstractmethod
+    def getMediumNumbers(self) -> tuple[int, int]:
+        pass
+
+    @abstractmethod
+    def getHardNumbers(self) -> tuple[float, float]:
+        pass
+
+    @abstractmethod
     def create_question(self, difficulty):
         pass
 

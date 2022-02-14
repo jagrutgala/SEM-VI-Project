@@ -92,7 +92,7 @@ class DivisionQuestion(QuestionGenerator, pre_fix="division"):
     def __init__(self, pre_fix, num_gen_type=None) -> None:
         super().__init__(pre_fix)
         # self.num_generator = NumberGen(num_gen_type)
-    
+
     def getEasyNumbers(self) -> tuple[int, int]:
         return (int(positiveNumberInRange(100)), int(positiveNumberInRange(100)))
 
@@ -119,8 +119,14 @@ class DivisionQuestion(QuestionGenerator, pre_fix="division"):
 def main():
     qgen = QuestionGenerator("addition", num_gen_type="basic_numbers")
     print(f"Question Class Type {type(qgen)}")
-    q = qgen.create_question(QuestionGenerator.EAZY)
-    print(q)
+    for _ in range(10):
+        q = qgen.create_question(QuestionGenerator.EAZY)
+        print(f"EAZY Question \n{q}")
+        q = qgen.create_question(QuestionGenerator.MEDIUM)
+        print(f"MEDIUM Question \n{q}")
+        q = qgen.create_question(QuestionGenerator.HARD)
+        print(f"HARD Question \n{q}")
+        print()
 
 if __name__ == "__main__":
     main()
