@@ -27,7 +27,7 @@ class AdditionQuestion(QuestionGenerator, pre_fix="addition"):
             num1, num2 = self.getEasyNumbers()
         q_string = f"{num1} + {num2}"
         ans = self.findAns(num1, num2)
-        return Question(q_string=q_string, answer=ans, question_type=self.q_type, difficulty=difficulty)
+        return Question(tex=q_string, answer=ans, question_type=self.q_type, difficulty=difficulty)
 
     def findAns(self, num1, num2):
         return num1 + num2

@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 import random
-from sys import ps1
 
 ##############################
 # Number Generator Abstract
@@ -56,11 +55,14 @@ class NumberGenerator(ABC):
 ##############################
 # Number Generator Types
 # - Positive Number Generator
+# - Negative Number Generator
 # - Integer Number Generator
-# - FLoating Number Generator
+# - Positive Integer Number Generator
+# - Integer Number Generator
+# - Floating Number Generator
 ##############################
 class PositiveNumberGenerator(NumberGenerator):
-    def number(self):
+    def number(self) -> int:
         return random.randint(0, 1000)
 
     def multipleNumber(self, num, limit= 1000):
@@ -69,7 +71,7 @@ class PositiveNumberGenerator(NumberGenerator):
     def factorNumber(self, num):
         pass
 
-    def rangeNumber(self, lower_limit=0, upper_limit=1000):
+    def rangeNumber(self, lower_limit=0, upper_limit=1000) -> int:
         return random.randint(0, upper_limit)
 
     def digitNumber(self, no_of_digits: int, available_digits: list):

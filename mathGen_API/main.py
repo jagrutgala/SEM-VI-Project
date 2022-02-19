@@ -2,11 +2,23 @@
 from urllib import response
 from flask import Flask, jsonify, request, render_template
 
+from mathGen_API.questionGen import QG
+
 app = Flask(__name__)
 app.config["ENV"] = "development"
 
-@app.route("/", methods=["GET", "OPTIONS"])
-def index():
+# global question generator factory
+qg = QG()
+
+def checkData(data, keys=None):
+    keys = keys if keys is not None else ["topic", "type", "params", "noq"]
+    check = all([data.has_key(k) for k in keys])
+    return check
+
+
+### Documentation Routes ###
+@app.route("/", methods=["GET"])
+def index(): # url navigation info
     is_get = False
     data = None
     if request.method == "GET":
@@ -14,14 +26,150 @@ def index():
     data = request.get_json()
     return render_template("index.html", get=is_get, json=data)
 
-@app.route("/basic")
-def basicRoute():
-    data = request.get_json()
-    if data is None: return "Error 400"
-    difficulty = data.get("difficulty", None)
-    operator = data.get("operator", None)
+@app.route("/type/<int:topic_id>")
+def typesAvaiable():
+    pass
 
-# @app.route("/path", methods=["GET", "POST", "PUT", "DELETE"])
+@app.route("/param/<str:topic_id>/<int:type_id>")
+def paramsAvaiable():
+    pass
+
+### Functional Routes ###
+@app.route("/basic")
+def basicQuestions():
+    data = request.get_json()
+    if data is None: return "Error - Bad Request"
+    if not checkData(data): return "Error - Bad Request"
+    topic = "basic"
+    type_ = data.get("type", None)
+    if type_ is None: return "Error - Undefined Type of Question"
+    params = data.get("params", {"difficulty": 1})
+    noq = data.get("noq", 1)
+    question_list = []
+    for i  in range(noq):
+        question = qg.getQuestionType(topic, type_)(**params)
+        question_list.append(question.json())
+    return jsonify(question_list)
+
+@app.route("/lcm")
+def lcmQuestion():
+    data = request.get_json()
+    if data is None: return "Error - Bad Request"
+    if not checkData(data): return "Error - Bad Request"
+    topic = "lcm"
+    type_ = data.get("type", None)
+    if type_ is None: return "Error - Undefined Type of Question"
+    params = data.get("params", {"difficulty": 1})
+    noq = data.get("noq", 1)
+    question_list = []
+    for i  in range(noq):
+        question = qg.getFunc(topic, type_)(params)
+        question_list.append(question.json())
+    return jsonify(question_list)
+
+@app.route("/hcf")
+def hcfQuestion():
+    data = request.get_json()
+    if data is None: return "Error - Bad Request"
+    if not checkData(data): return "Error - Bad Request"
+    topic = "hcf"
+    type_ = data.get("type", None)
+    if type_ is None: return "Error - Undefined Type of Question"
+    params = data.get("params", {"difficulty": 1})
+    noq = data.get("noq", 1)
+    question_list = []
+    for i  in range(noq):
+        question = qg.getFunc(topic, type_)(params)
+        question_list.append(question.json())
+    return jsonify(question_list)
+
+@app.route("/percentage")
+def percentageQuestion():
+    data = request.get_json()
+    if data is None: return "Error - Bad Request"
+    if not checkData(data): return "Error - Bad Request"
+    topic = "percentage"
+    type_ = data.get("type", None)
+    if type_ is None: return "Error - Undefined Type of Question"
+    params = data.get("params", {"difficulty": 1})
+    noq = data.get("noq", 1)
+    question_list = []
+    for i  in range(noq):
+        question = qg.getFunc(topic, type_)(params)
+        question_list.append(question.json())
+    return jsonify(question_list)
+
+@app.route("/quadratic")
+def quadraticQuestion():
+    data = request.get_json()
+    if data is None: return "Error - Bad Request"
+    if not checkData(data): return "Error - Bad Request"
+    topic = "quadratic"
+    type_ = data.get("type", None)
+    if type_ is None: return "Error - Undefined Type of Question"
+    params = data.get("params", {"difficulty": 1})
+    noq = data.get("noq", 1)
+    question_list = []
+    for i  in range(noq):
+        question = qg.getFunc(topic, type_)(params)
+        question_list.append(question.json())
+    return jsonify(question_list)
+
+@app.route("/liinear2var")
+def liinear2varQuestion():
+    data = request.get_json()
+    if data is None: return "Error - Bad Request"
+    if not checkData(data): return "Error - Bad Request"
+    topic = "liinear2var"
+    type_ = data.get("type", None)
+    if type_ is None: return "Error - Undefined Type of Question"
+    params = data.get("params", {"difficulty": 1})
+    noq = data.get("noq", 1)
+    question_list = []
+    for i  in range(noq):
+        question = qg.getFunc(topic, type_)(params)
+        question_list.append(question.json())
+    return jsonify(question_list)
+
+@app.route("/si")
+def siQuestion():
+    data = request.get_json()
+    if data is None: return "Error - Bad Request"
+    if not checkData(data): return "Error - Bad Request"
+    topic = "si"
+    type_ = data.get("type", None)
+    if type_ is None: return "Error - Undefined Type of Question"
+    params = data.get("params", {"difficulty": 1})
+    noq = data.get("noq", 1)
+    question_list = []
+    for i  in range(noq):
+        question = qg.getFunc(topic, type_)(params)
+        question_list.append(question.json())
+    return jsonify(question_list)
+
+@app.route("/ci")
+def ciQuestion():
+    data = request.get_json()
+    if data is None: return "Error - Bad Request"
+    if not checkData(data): return "Error - Bad Request"
+    topic = "ci"
+    type_ = data.get("type", None)
+    if type_ is None: return "Error - Undefined Type of Question"
+    params = data.get("params", {"difficulty": 1})
+    noq = data.get("noq", 1)
+    question_list = []
+    for i  in range(noq):
+        question = qg.getFunc(topic, type_)(params)
+        question_list.append(question.json())
+    return jsonify(question_list)
+
+@app.route("/random")
+def randomQuestion():
+    return "Random Question Generating"
+
+
+
+# @app.route("/path", methods=["GET"])
 # def template_route():
 #     pass
 
