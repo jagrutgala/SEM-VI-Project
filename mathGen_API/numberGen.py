@@ -1,121 +1,67 @@
-from abc import ABC, abstractmethod
+##############################
+# numberGen.py - Docs
+"""
+"""
+##############################
+# Type Hinting Reamaining
+
 import random
+from abc import ABC, abstractmethod
+from typing import Optional
 
-##############################
-# Number Generator Abstract
-##############################
 class NumberGenerator(ABC):
-    """
-    Number Generator Function
-    - number
-    - multipleNumber (n)
-    - factorNumber (n)
-    - rangeNumber (ll, ul)
-    - Number
-    - digitNumber (no_of_digits:int, available_digits:list)
-    - joinDigits (digits: list)
-    """
+    def __init__(self, lower_limit, upper_limit) -> None:
+        self.lower_limit = lower_limit
+        self.upper_limit = upper_limit
 
     @abstractmethod
+    def number(self, is_negative:Optional[bool]=False, is_zero:Optional[bool]=False):
+        ...
+
+class RangedIntegerNumberGenerator(NumberGenerator):
+    def __init__(self, lower_limit=1, upper_limit=1000) -> None:
+        super().__init__(lower_limit, upper_limit)
+        # self.lower_limit = lower_limit
+        # self.upper_limit = upper_limit
+
+    def number(self, is_negative:Optional[bool]=False, is_zero:Optional[bool]=False):
+        if is_zero: return 0
+        num = random.randint(self.lower_limit, self.upper_limit)
+        if is_negative: num *= -1
+        return num
+
+class RangedFloatingNumberGenerator(NumberGenerator):
+    def __init__(self, lower_limit=1, upper_limit=1000) -> None:
+        super().__init__(lower_limit, upper_limit)
+        # self.lower_limit = lower_limit
+        # self.upper_limit = upper_limit
+
+    def number(self, decimal:int, is_negative:Optional[bool]=False, is_zero:Optional[bool]=False):
+        ... # Floating Number Generation Implementation
+
+
+"""class SmallNumberGenerator:
+    def __init__(self, lower_limit=1, upper_limit=25) -> None:
+        self.lower_limit = lower_limit
+        self.upper_limit = upper_limit
+
     def number(self):
-        pass
-    
-    @abstractmethod
-    def multipleNumber(self, num):
-        pass
+        return random.randint(self.lower_limit, self.upper_limit)
 
-    @abstractmethod
-    def factorNumber(self, num):
-        pass
+class MediumNumberGenerator:
+    def __init__(self, lower_limit=25, upper_limit=100) -> None:
+        self.lower_limit = lower_limit
+        self.upper_limit = upper_limit
 
-    @abstractmethod
-    def rangeNumber(self, lower_limit, upper_limit):
-        pass
-    
-    # @abstractmethod
-    # def Number(self):
-    #     pass
-
-    @abstractmethod
-    def digitNumber(self, no_of_digits: int, available_digits: list= None):
-        pass 
-
-    def __joinDigits(self, digits: list):
-        return int("".join(digits))
-
-    def unitNumber(self, available_digits: list= None):
-        return self.digitNumber(1, available_digits)
-
-    def tensNumber(self, available_digits: list= None):
-        return self.digitNumber(2, available_digits)
-
-    def thousandsNumber(self, available_digits: list= None):
-        return self.digitNumber(3, available_digits)
-
-##############################
-# Number Generator Types
-# - Positive Number Generator
-# - Negative Number Generator
-# - Integer Number Generator
-# - Positive Integer Number Generator
-# - Integer Number Generator
-# - Floating Number Generator
-##############################
-class PositiveNumberGenerator(NumberGenerator):
-    def number(self) -> int:
-        return random.randint(0, 1000)
-
-    def multipleNumber(self, num, limit= 1000):
-        return num* self.rangeNumber(upper_limit=limit)
-
-    def factorNumber(self, num):
-        pass
-
-    def rangeNumber(self, lower_limit=0, upper_limit=1000) -> int:
-        return random.randint(0, upper_limit)
-
-    def digitNumber(self, no_of_digits: int, available_digits: list):
-        pass 
-
-
-class IntegerNumberGenerator(NumberGenerator):
     def number(self):
-        pass
+        return random.randint(self.lower_limit, self.upper_limit)
 
-    def multipleNumber(self, num):
-        pass
+class LargeNumberGenerator:
+    def __init__(self, lower_limit=100, upper_limit=1000) -> None:
+        self.lower_limit = lower_limit
+        self.upper_limit = upper_limit
 
-    def factorNumber(self, num):
-        pass
-
-    def rangeNumber(self, lower_limit, upper_limit):
-        pass
-
-    def digitNumber(self, no_of_digits: int, available_digits: list):
-        pass 
-
-class FloatingNumberGenerator(NumberGenerator):
     def number(self):
-        pass
-
-    def multipleNumber(self, num):
-        pass
-
-    def factorNumber(self, num):
-        pass
-
-    def rangeNumber(self, lower_limit, upper_limit):
-        pass
-
-    def digitNumber(self, no_of_digits: int, available_digits: list):
-        pass
-
-    def regularFloat(self):
-        pass
-
-class NumberGenerator_Factory:
-    pass
-
-
+        return random.randint(self.lower_limit, self.upper_limit)"""
 
 

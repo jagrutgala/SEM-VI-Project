@@ -1,6 +1,16 @@
 from abc import ABC, abstractmethod
-from numberGen import PositiveNumberGenerator
 
+##############################
+# Temparary
+class NumberGen:
+    pass
+
+# Temparary
+##############################
+
+##############################
+# Question
+##############################
 class Question:
     def __init__(self, qstring, answer, question_type) -> None:
         self.qstring = qstring
@@ -9,7 +19,6 @@ class Question:
     
     def __repr__(self) -> str:
         return f"[Question] {self.qstring} \tAnswer: {self.answer}"
-
 
 ##############################
 # Question Generator Abstract
@@ -43,7 +52,7 @@ class QuestionGenerator(ABC):
 # - LogQuestion
 
 ##############################
-"""class AdditionQuestion(QuestionGenerator):
+class AdditionQuestion(QuestionGenerator):
     TYPE = "addition"
     def question(self) -> Question:
         num1 , num2 = (self.number_generator.number() for _ in range(2))
@@ -74,7 +83,7 @@ class DivisionQuestion(QuestionGenerator):
         # zero division check
         string = f"{num1} / {num2}"
         answer = num1 / num2
-        return Question(string, answer, self.TYPE, self.DIFFICULTY)"""
+        return Question(string, answer, self.TYPE, self.DIFFICULTY)
 
 class LCMQuestion(QuestionGenerator):
     TYPE = "lcm"

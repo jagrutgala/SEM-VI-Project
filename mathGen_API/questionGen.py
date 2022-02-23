@@ -1,128 +1,35 @@
-# To Figure out :??
-# easily add new gen function to GEN_FUNCS
-# refference to all the different question gen functions
-# question gen func decorator
+##############################
+# questionGen.py - Docs
+"""
+"""
+##############################
+# Type Hinting Reamaining
+import lookup
 
-from abc import ABC, abstractmethod
+class QuestionGeneration:
+    @classmethod
+    def generationObject(cls, gen_type):
+        gen_cls = lookup.GENERATION_LOOKUP.get(gen_type, None)
+        if gen_cls is None: return None
+        return gen_cls()
 
-class Question:
-    def __init__(self, qstring, answer, question_type) -> None:
-        self.qstring = qstring
-        self.answer = answer
-        self.type = question_type
-    
-    def __repr__(self) -> str:
-        return f"[Question] {self.qstring} \tAnswer: {self.answer}"
+    @classmethod
+    def numberObject(cls, num_type:int):
+        num_cls = lookup.DIFFICULTY_LOOKUP.get(num_type, None)
+        if num_cls is None: return None
+        return num_cls
 
-class QuestionGenerator(ABC):
-    def __init__(self, num_gen_strat) -> None:
-        super().__init__()
-        self.num_gen_strat = num_gen_strat
+    def create_question(self, gen_type, difficulty:int):
+        gen_obj = self.generationObject(gen_type)
+        if gen_obj is None: raise Exception("Bad Topic and Type")
+        num_obj = self.numberObject(difficulty)
+        if num_obj is None: raise Exception("Bad Difficulty")
+        question = gen_obj.create_question(num_obj)
+        return question
 
-    @abstractmethod
-    def question(self) -> Question:
-        pass
+if __name__ == "__main__":
+    print("Hello World! :)")
+    # print(f"Available stratergies: {', '.join(lookup.GENERATION_LOOKUP.keys())}\n")
+    # question_topic, question_type = input("What topic and stratergy do you want to use ? eg. quadratic type2\n").split()
+    print("Done ✅")
 
-class AdditionQuestionGenerator(QuestionGenerator):
-    TYPE = "add"
-    def __init__(self,no_of_nums:int, num_gen_strat) -> None:
-        super().__init__(num_gen_strat)
-        self.no_of_nums = no_of_nums
-        if self.no_of_nums < 2: self.no_of_nums = 2
-    
-    def question(self) -> Question:
-        num_list = []
-        for i in range(self.no_of_nums):
-            num_list.append(self.num_gen_strat.number())
-        format_string = " + ".join(["{}" for _ in range(self.no_of_nums)])
-        question_string = format_string.format(*num_list)
-        answer = eval(question_string)
-        return Question(question_string, answer, f"{self.TYPE}-{self.no_of_nums}")
-
-class SubtractionQuestionGenerator(QuestionGenerator):
-    TYPE = "sub"
-    def __init__(self,no_of_nums:int, num_gen_strat) -> None:
-        super().__init__(num_gen_strat)
-        self.no_of_nums = no_of_nums
-        if self.no_of_nums < 2: self.no_of_nums = 2
-    
-    def question(self) -> Question:
-        num_list = []
-        for i in range(self.no_of_nums):
-            num_list.append(self.num_gen_strat.number())
-        format_string = " - ".join(["{}" for _ in range(self.no_of_nums)])
-        question_string = format_string.format(*num_list)
-        answer = eval(question_string)
-        return Question(question_string, answer, f"{self.TYPE}-{self.no_of_nums}")
-
-class MultiplicationQuestionGenerator(QuestionGenerator):
-    TYPE = "mul"
-    def __init__(self,no_of_nums:int, num_gen_strat) -> None:
-        super().__init__(num_gen_strat)
-        self.no_of_nums = no_of_nums
-        if self.no_of_nums < 2: self.no_of_nums = 2
-    
-    def question(self) -> Question:
-        num_list = []
-        for i in range(self.no_of_nums):
-            num_list.append(self.num_gen_strat.number())
-        format_string = " * ".join(["{}" for _ in range(self.no_of_nums)])
-        question_string = format_string.format(*num_list)
-        answer = eval(question_string)
-        return Question(question_string, answer, f"{self.TYPE}-{self.no_of_nums}")
-
-class DivisionQuestionGenerator(QuestionGenerator):
-    TYPE = "div"
-    def __init__(self,no_of_nums:int, num_gen_strat) -> None:
-        super().__init__(num_gen_strat)
-        self.no_of_nums = no_of_nums
-        if self.no_of_nums < 2: self.no_of_nums = 2
-    
-    def question(self) -> Question:
-        num_list = []
-        for i in range(self.no_of_nums):
-            num_list.append(self.num_gen_strat.number())
-        format_string = " / ".join(["{}" for _ in range(self.no_of_nums)])
-        question_string = format_string.format(*num_list)
-        answer = eval(question_string)
-        return Question(question_string, answer, f"{self.TYPE}-{self.no_of_nums}")
-
-class QuadraticQuestionGenerator(QuestionGenerator):
-    TYPE = "quad"
-    def __init__(self, num_gen_strat) -> None:
-        super().__init__(num_gen_strat)
-    
-    def question(self) -> Question:
-        alpha= self.num_gen_strat.number()
-        beta= self.num_gen_strat.number()
-        question_string= f"x^2 +{alpha+ beta}x + {alpha* beta} = 0"
-        answer = (alpha, beta)
-        return Question(question_string, answer, f"{self.TYPE}")
-
-class Linear2VarQuestionGenerator(QuestionGenerator):
-    TYPE = "linear2var"
-    def __init__(self, num_gen_strat) -> None:
-        super().__init__(num_gen_strat)
-
-    def getPoints(self):
-        return ((self.num_gen_strat.number(), self.num_gen_strat.number()) for _i in range(3))
-
-    def getEquation(self, point, ans_point):
-        a = (ans_point[1] - point[1])
-        b = (ans_point[0] - point[0]) * -1
-        c = (point[0] * (ans_point[1] - point[1])) - (point[1] * (ans_point[0] - point[0]))
-        return f"{a}x + {b}y + {c} = 0"
-
-    def question(self) -> Question: # Temprary Algo (Sign Optimization Required and Wrong answer)
-        p1, p2, p3 = self.getPoints()
-        eq1 = self.getEquation(p1, p3)
-        eq2 = self.getEquation(p2, p3)
-        question_string = f"{eq1};{eq2}"
-        answer = p3
-        return Question(question_string, answer, f"{self.TYPE}")
-
-class SimpleInterestQuestionGenerator(QuestionGenerator):
-    pass
-
-class CompoundInterestQuestionGenerator(QuestionGenerator):
-    pass

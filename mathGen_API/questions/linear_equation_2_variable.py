@@ -17,7 +17,11 @@ class linear2var:
     def getEquation(self, point, ans_point):
         a = (ans_point[1] - point[1])
         b = (ans_point[0] - point[0]) * -1
-        c = (point[0] * (ans_point[1] - point[1])) - (point[1] * (ans_point[0] - point[0]))
+        c = -(point[0] * (ans_point[1] - point[1])) + (point[1] * (ans_point[0] - point[0]))
+        if(a < 0):
+            a*= -1
+            b*= -1
+            c*= -1
         return f"{a}x + {b}y + {c} = 0"
 
     def question(self) -> Question:

@@ -1,42 +1,30 @@
-class QO:
-    pass
-
-class QG:
-    def question(self, qo: QO):
-        pass
-
-
 # Characteristics of a Question
 # string, type, difficulty, ans, fake_options?
-
 # Characteristics of a Question Generator
 # format string, *numbergenerator_objs, difficulty
 # format string, number_of_numbers_needed, types_of_numbers_needed, position_of_numbers_needed
 
+DIFFICULTY_LOOKUP = { 
+    1: SmallNumberGenerator, # 1 to 25
+    2: MediumNumberGenerator, # 25 to 100
+    3: LargeNumberGenerator # 100 to 1000
+    }
 
-# from random import sample
-# from typing_extensions import Self
-
-# class Question:
-
-#     def __init__(self, q_type, q_string:str, q_diff, q_answer, q_options=None) -> None:
-#         self.q_type = q_type
-#         self.q_string = q_string
-#         self.q_diff = q_diff
-#         self.q_answer = q_answer
-#         self.q_options = q_options
-
-#     def __repr__(self) -> str:
-#         return f"{self.q_string} \nAns: {','.join(sample([*self.q_options, self.q_answer], len(self.q_options)+1))}"
-
-# def createQuestion(q_type, q_string, q_diff, ng_F, q_ans_F, q_options_F) -> Question:
-#     return Question("", "", "", "", "")
-
-# # Question Generator using composition
-# # composition parts (question_string, number_generator, ans_function, difficulty, )
-
-
-# class QuestionGenerator:
-#     def __init__(self, type, ng) -> None:
-#         pass
-
+GENERATION_LOOKUP = {
+    ("addition", "type1"): AdditionQuestionType1,
+    ("addition", "type2"): AdditionQuestionType2,
+    ("addition", "type3"): AdditionQuestionType3,
+    
+    ("addition", "type1"): AdditionQuestionType1,
+    ("addition", "type2"): AdditionQuestionType2,
+    ("addition", "type3"): AdditionQuestionType3,
+    ("addition", "type1"): AdditionQuestionType1,
+    ("addition", "type2"): AdditionQuestionType2,
+    ("addition", "type3"): AdditionQuestionType3,
+    ("addition", "type1"): AdditionQuestionType1,
+    ("addition", "type2"): AdditionQuestionType2,
+    ("addition", "type3"): AdditionQuestionType3,
+    ("addition", "type1"): AdditionQuestionType1,
+    ("addition", "type2"): AdditionQuestionType2,
+    ("addition", "type3"): AdditionQuestionType3,
+}
