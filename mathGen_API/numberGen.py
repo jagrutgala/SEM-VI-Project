@@ -30,6 +30,15 @@ class RangedIntegerNumberGenerator(NumberGenerator):
         if is_negative: num *= -1
         return num
 
+    def numbers(self, n:int, is_negative:Optional[bool]=False, is_zero:Optional[bool]=False):
+        all_nums = []
+        for i in range(n):
+            if is_zero: return 0
+            num = random.randint(self.lower_limit, self.upper_limit)
+            if is_negative: num *= -1
+            all_nums.append(num)
+        return all_nums
+
 class RangedFloatingNumberGenerator(NumberGenerator):
     def __init__(self, lower_limit=1, upper_limit=1000) -> None:
         super().__init__(lower_limit, upper_limit)
@@ -37,8 +46,19 @@ class RangedFloatingNumberGenerator(NumberGenerator):
         # self.upper_limit = upper_limit
 
     def number(self, decimal:int, is_negative:Optional[bool]=False, is_zero:Optional[bool]=False):
-        ... # Floating Number Generation Implementation
+        if is_zero: return 0
+        num = random.uniform(self.lower_limit, self.upper_limit)
+        if is_negative: num *= -1
+        return num
 
+    def numbers(self, n:int, is_negative:Optional[bool]=False, is_zero:Optional[bool]=False):
+        all_nums = []
+        for i in range(n):
+            if is_zero: return 0
+            num = random.uniform(self.lower_limit, self.upper_limit)
+            if is_negative: num *= -1
+            all_nums.append(num)
+        return all_nums
 
 """class SmallNumberGenerator:
     def __init__(self, lower_limit=1, upper_limit=25) -> None:

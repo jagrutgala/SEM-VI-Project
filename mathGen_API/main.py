@@ -1,5 +1,4 @@
 # API
-from urllib import response
 from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
@@ -97,7 +96,7 @@ def divisionQuestions():
         question_list.append(question.json())
     return jsonify(question_list)
 
-@app.route("/basic")
+@app.route("/mixedOperation")
 def basicQuestions():
     data = request.get_json()
     if data is None: return "Error - Bad Request"
