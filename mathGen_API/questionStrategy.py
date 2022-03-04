@@ -2,16 +2,38 @@
 from abc import ABC, abstractmethod
 from question import Question
 import random, math
+from numberGen import RangedIntegerNumberGenerator
 
 class QuestionType(ABC):
+    def __init__(self, difficulty) -> None:
+        super().__init__()
+        self.difficulty = difficulty
+        num_range = 
+        self.number_gen_obj = RangedIntegerNumberGenerator(*num_range)
+
     @abstractmethod
     def generate_question(self, *args, **kwargs):
         ...
 
+    @abstractmethod
+    def setDifficulty(self, difficulty:int) -> None:
+        ...
+
+    def isCustomDifficulty(self) -> bool:
+        return self.difficulty < 0
+
+    def setLowerLimit(self, ll):
+        if not self.isCustomDifficulty(): raise Exception("difficulty must be set to -1")
+        self.num_gen_obj.lower_limit = ll
+
+    def setUpperLimit(self, ul):
+        if not self.isCustomDifficulty(): raise Exception("difficulty must be set to -1")
+        self.num_gen_obj.upper_limit = ul
+
 class AdditionQuestionType1(QuestionType):
     Q_TYPE = "addition type1"
-    def __init__(self, number_of_nums) -> None:
-        super().__init__()
+    def __init__(self, difficulty, number_of_nums) -> None:
+        super().__init__(difficulty)
         self.operator = "+"
         if number_of_nums < 2: raise Exception("number_of_nums must be 2 or greater")
         self.number_of_nums = number_of_nums
@@ -24,8 +46,8 @@ class AdditionQuestionType1(QuestionType):
 
 class SubtractionQuestionType1(QuestionType):
     Q_TYPE = "subtraction type1"
-    def __init__(self, number_of_nums) -> None:
-        super().__init__()
+    def __init__(self, difficulty, number_of_nums) -> None:
+        super().__init__(difficulty)
         self.operator = "-"
         if number_of_nums < 2: raise Exception("number_of_nums must be 2 or greater")
         self.number_of_nums = number_of_nums
@@ -39,8 +61,8 @@ class SubtractionQuestionType1(QuestionType):
 
 class SubtractionQuestionType2(QuestionType):
     Q_TYPE = "subtraction type2"
-    def __init__(self, number_of_nums) -> None:
-        super().__init__()
+    def __init__(self, difficulty, number_of_nums) -> None:
+        super().__init__(difficulty)
         self.operator = "-"
         if number_of_nums < 2: raise Exception("number_of_nums must be 2 or greater")
         self.number_of_nums = number_of_nums
@@ -54,8 +76,8 @@ class SubtractionQuestionType2(QuestionType):
 
 class SubtractionQuestionType3(QuestionType):
     Q_TYPE = "subtraction type3"
-    def __init__(self, number_of_nums) -> None:
-        super().__init__()
+    def __init__(self, difficulty, number_of_nums) -> None:
+        super().__init__(difficulty)
         self.operator = "-"
         if number_of_nums < 2: raise Exception("number_of_nums must be 2 or greater")
         if number_of_nums %2 != 0: raise Exception("number_of_nums must be even")
@@ -71,8 +93,8 @@ class SubtractionQuestionType3(QuestionType):
 
 class MultiplicationQuestionType1(QuestionType):
     Q_TYPE = "multiplication type1"
-    def __init__(self, number_of_nums) -> None:
-        super().__init__()
+    def __init__(self, difficulty, number_of_nums) -> None:
+        super().__init__(difficulty)
         self.operator = "*"
         if number_of_nums < 2: raise Exception("number_of_nums musst be 2 or greater")
         self.number_of_nums = number_of_nums
@@ -85,8 +107,8 @@ class MultiplicationQuestionType1(QuestionType):
 
 class MultiplicationQuestionType2(QuestionType):
     Q_TYPE = "multiplication type2"
-    def __init__(self, number_of_nums) -> None:
-        super().__init__()
+    def __init__(self, difficulty, number_of_nums) -> None:
+        super().__init__(difficulty)
         self.operator = "*"
         if number_of_nums < 2: raise Exception("number_of_nums musst be 2 or greater")
         self.number_of_nums = number_of_nums
@@ -101,8 +123,8 @@ class MultiplicationQuestionType2(QuestionType):
 
 class DivisionQuestionType1(QuestionType):
     Q_TYPE = "division type1"
-    def __init__(self, number_of_nums) -> None:
-        super().__init__()
+    def __init__(self, difficulty, number_of_nums) -> None:
+        super().__init__(difficulty)
         self.operator = "/"
         if number_of_nums < 2: raise Exception("number_of_nums musst be 2 or greater")
         self.number_of_nums = number_of_nums
@@ -114,8 +136,8 @@ class DivisionQuestionType1(QuestionType):
 
 class DivisionQuestionType2(QuestionType):
     Q_TYPE = "division type2"
-    def __init__(self, number_of_nums) -> None:
-        super().__init__()
+    def __init__(self, difficulty, number_of_nums) -> None:
+        super().__init__(difficulty)
         self.operator = "/"
         if number_of_nums < 2: raise Exception("number_of_nums musst be 2 or greater")
         self.number_of_nums = number_of_nums
@@ -130,8 +152,8 @@ class DivisionQuestionType2(QuestionType):
 
 class LCMQuestionType1(QuestionType):
     Q_TYPE = "lcm type1"
-    def __init__(self, number_of_nums) -> None:
-        super().__init__()
+    def __init__(self, difficulty, number_of_nums) -> None:
+        super().__init__(difficulty)
         self.operator = ","
         if number_of_nums < 2: raise Exception("number_of_nums musst be 2 or greater")
         self.number_of_nums = number_of_nums
@@ -148,8 +170,8 @@ class LCMQuestionType1(QuestionType):
 
 class HCFQuestionType1(QuestionType):
     Q_TYPE = "hcf type1"
-    def __init__(self, number_of_nums) -> None:
-        super().__init__()
+    def __init__(self, difficulty, number_of_nums) -> None:
+        super().__init__(difficulty)
         self.operator = ","
         if number_of_nums < 2: raise Exception("number_of_nums musst be 2 or greater")
         self.number_of_nums = number_of_nums
@@ -271,7 +293,7 @@ if __name__ == "__main__":
     
     def main():
         import numberGen
-        gen_obj = DivisionQuestionType1(3)
+        gen_obj = AdditionQuestionType1(3, 3)
         question:Question = gen_obj.generate_question(numberGen.RangedIntegerNumberGenerator(50, 100))
         print(f"{question.type}")
         print(f"{question}")
