@@ -108,9 +108,7 @@ class DivisionQuestionType1(QuestionType):
         self.number_of_nums = number_of_nums
     def generate_question(self, number_gen_obj):
         format_string = f" {self.operator} ".join(["{}" for _ in range(self.number_of_nums)])
-        num_list = number_gen_obj.numbers(self.number_of_nums//2)
-        num_list += number_gen_obj.numbers(self.number_of_nums - self.number_of_nums//2, is_negative=True)
-        random.shuffle(num_list)
+        num_list = number_gen_obj.numbers(self.number_of_nums)
         question_string = format_string.format(*num_list)
         return Question(question_string, eval(question_string), self.Q_TYPE.title())
 
@@ -244,7 +242,7 @@ if __name__ == "__main__":
     
     def main():
         import numberGen
-        gen_obj = DivisionQuestionType1(2)
+        gen_obj = DivisionQuestionType1(3)
         question:Question = gen_obj.generate_question(numberGen.RangedIntegerNumberGenerator(50, 100))
         print(f"{question.type}")
         print(f"{question}")
