@@ -29,5 +29,8 @@ def main():
     result = lcmArray(num_list)
     print(f"result {result}")
 
+def returnTest():
+    return {"a": 1, "b": 2, "c": 3}
 if __name__ == "__main__":
-    main()
+    a, b, c = returnTest().get("")
+    print(a, b, c)

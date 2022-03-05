@@ -1,17 +1,32 @@
 # API
+import random
+from typing import Optional, Tuple
 from urllib import response
 from flask import Flask, jsonify, request, render_template
+from lookup import QUESTION_LOOKUP
+from lookup import DIFFICULTY_LOOKUP
+from question import Question
 
 app = Flask(__name__)
 app.config["ENV"] = "development"
 
 # global question generator factory
 
+def readRequestData(req_data) -> Tuple[int, int, int, Optional[dict]]:
+    type_ = req_data.get("type", 1)
+    noq = req_data.get("noq", 1)
+    difficulty = req_data.get("difficulty", 1)
+    params = req_data.get("params", None)
+    return (type_, noq, difficulty, params)
 
-def checkData(data, keys=None):
-    keys = keys if keys is not None else ["topic", "type", "params", "noq"]
-    check = all([data.has_key(k) for k in keys])
-    return check
+def checkParams(params, against):
+    ...
+
+def makeQuestion():
+    ...
+
+def createErrorResponse(err_message):
+    ...
 
 
 ### Documentation Routes ###
@@ -28,7 +43,7 @@ def index(): # url navigation info
 def typesAvaiable():
     pass
 
-@app.route("/param/<str:topic_id>/<int:type_id>")
+@app.route("/param/<string:topic_id>/<int:type_id>")
 def paramsAvaiable():
     pass
 
@@ -37,192 +52,113 @@ def paramsAvaiable():
 def additionQuestions():
     data = request.get_json()
     if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "add"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
+    type_, noq, difficulty, params = readRequestData(data)
+    topic:str = "add"
     question_list = []
     for i  in range(noq):
-        question = qg.getQuestionType(topic, type_)(**params)
-        question_list.append(question.json())
+        question_generator_cls = QUESTION_LOOKUP.get(("add", type_), None)
+        if question_generator_cls == None: return "Error - Bad parameters"
+        question_generator = question_generator_cls(params.get("number_of_nums", 2))
+        question:Question = question_generator.generate_question(DIFFICULTY_LOOKUP.get(difficulty))
+        question_list.append(question.toJson())
     return jsonify(question_list)
 
 @app.route("/sub")
 def subtractionQuestions():
     data = request.get_json()
     if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "sub"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
+    type_, noq, difficulty, params = readRequestData(data)
     question_list = []
     for i  in range(noq):
-        question = qg.getQuestionType(topic, type_)(**params)
-        question_list.append(question.json())
+        question_generator_cls = QUESTION_LOOKUP.get(("sub", type_), None)
+        if question_generator_cls == None: return "Error - Bad parameters"
+        question_generator = question_generator_cls(params.get("number_of_nums", 2))
+        question:Question = question_generator.generate_question(DIFFICULTY_LOOKUP.get(difficulty))
+        question_list.append(question.toJson())
     return jsonify(question_list)
 
 @app.route("/mul")
 def multiplicationQuestions():
     data = request.get_json()
     if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "mul"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
+    type_, noq, difficulty, params = readRequestData(data)
     question_list = []
     for i  in range(noq):
-        question = qg.getQuestionType(topic, type_)(**params)
-        question_list.append(question.json())
+        question_generator_cls = QUESTION_LOOKUP.get(("mul", type_), None)
+        if question_generator_cls == None: return "Error - Bad parameters"
+        question_generator = question_generator_cls(params.get("number_of_nums", 2))
+        question:Question = question_generator.generate_question(DIFFICULTY_LOOKUP.get(difficulty))
+        question_list.append(question.toJson())
     return jsonify(question_list)
 
 @app.route("/div")
 def divisionQuestions():
     data = request.get_json()
     if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "div"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
+    type_, noq, difficulty, params = readRequestData(data)
     question_list = []
     for i  in range(noq):
-        question = qg.getQuestionType(topic, type_)(**params)
-        question_list.append(question.json())
-    return jsonify(question_list)
-
-@app.route("/basic")
-def basicQuestions():
-    data = request.get_json()
-    if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "basic"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
-    question_list = []
-    for i  in range(noq):
-        question = qg.getQuestionType(topic, type_)(**params)
-        question_list.append(question.json())
+        question_generator_cls = QUESTION_LOOKUP.get(("div", type_), None)
+        if question_generator_cls == None: return "Error - Bad parameters"
+        question_generator = question_generator_cls(params.get("number_of_nums", 2))
+        question:Question = question_generator.generate_question(DIFFICULTY_LOOKUP.get(difficulty))
+        question_list.append(question.toJson())
     return jsonify(question_list)
 
 @app.route("/lcm")
 def lcmQuestion():
     data = request.get_json()
     if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "lcm"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
+    type_, noq, difficulty, params = readRequestData(data)
     question_list = []
     for i  in range(noq):
-        question = qg.getFunc(topic, type_)(params)
-        question_list.append(question.json())
+        question_generator_cls = QUESTION_LOOKUP.get(("lcm", type_), None)
+        if question_generator_cls == None: return "Error - Bad parameters"
+        question_generator = question_generator_cls(params.get("number_of_nums", 2))
+        question:Question = question_generator.generate_question(DIFFICULTY_LOOKUP.get(difficulty))
+        question_list.append(question.toJson())
     return jsonify(question_list)
 
 @app.route("/hcf")
 def hcfQuestion():
     data = request.get_json()
     if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "hcf"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
+    type_, noq, difficulty, params = readRequestData(data)
     question_list = []
     for i  in range(noq):
-        question = qg.getFunc(topic, type_)(params)
-        question_list.append(question.json())
-    return jsonify(question_list)
-
-@app.route("/percentage")
-def percentageQuestion():
-    data = request.get_json()
-    if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "percentage"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
-    question_list = []
-    for i  in range(noq):
-        question = qg.getFunc(topic, type_)(params)
-        question_list.append(question.json())
+        question_generator_cls = QUESTION_LOOKUP.get(("hcf", type_), None)
+        if question_generator_cls == None: return "Error - Bad parameters"
+        question_generator = question_generator_cls(params.get("number_of_nums", 2))
+        question:Question = question_generator.generate_question(DIFFICULTY_LOOKUP.get(difficulty))
+        question_list.append(question.toJson())
     return jsonify(question_list)
 
 @app.route("/quadratic")
 def quadraticQuestion():
     data = request.get_json()
     if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "quadratic"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
+    type_, noq, difficulty, params = readRequestData(data)
     question_list = []
     for i  in range(noq):
-        question = qg.getFunc(topic, type_)(params)
-        question_list.append(question.json())
+        question_generator_cls = QUESTION_LOOKUP.get(("quadratic", type_), None)
+        if question_generator_cls == None: return "Error - Bad parameters"
+        question_generator = question_generator_cls()
+        question:Question = question_generator.generate_question(DIFFICULTY_LOOKUP.get(difficulty))
+        question_list.append(question.toJson())
     return jsonify(question_list)
 
-@app.route("/liinear2var")
+@app.route("/linear2var")
 def liinear2varQuestion():
     data = request.get_json()
     if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "liinear2var"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
+    type_, noq, difficulty, params = readRequestData(data)
     question_list = []
     for i  in range(noq):
-        question = qg.getFunc(topic, type_)(params)
-        question_list.append(question.json())
-    return jsonify(question_list)
-
-@app.route("/si")
-def siQuestion():
-    data = request.get_json()
-    if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "si"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
-    question_list = []
-    for i  in range(noq):
-        question = qg.getFunc(topic, type_)(params)
-        question_list.append(question.json())
-    return jsonify(question_list)
-
-@app.route("/ci")
-def ciQuestion():
-    data = request.get_json()
-    if data is None: return "Error - Bad Request"
-    if not checkData(data): return "Error - Bad Request"
-    topic = "ci"
-    type_ = data.get("type", None)
-    if type_ is None: return "Error - Undefined Type of Question"
-    params = data.get("params", {"difficulty": 1})
-    noq = data.get("noq", 1)
-    question_list = []
-    for i  in range(noq):
-        question = qg.getFunc(topic, type_)(params)
-        question_list.append(question.json())
+        question_generator_cls = QUESTION_LOOKUP.get(("linear2var", type_), None)
+        if question_generator_cls == None: return "Error - Bad parameters"
+        question_generator = question_generator_cls()
+        question:Question = question_generator.generate_question(DIFFICULTY_LOOKUP.get(difficulty))
+        question_list.append(question.toJson())
     return jsonify(question_list)
 
 @app.route("/random")

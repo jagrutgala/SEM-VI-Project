@@ -7,5 +7,10 @@ class Question:
     def __repr__(self) -> str:
         return f"[Question] {self.qstring} \tAnswer: {self.answer}"
 
-if __name__ == "__main__":
-    pass
+    def toJson(self):
+        qson = dict()
+        qson["question_string"] = self.qstring
+        qson["answer"] = self.answer
+        return qson
+
+

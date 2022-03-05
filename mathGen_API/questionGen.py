@@ -9,7 +9,7 @@ import lookup
 class QuestionGeneration:
     @classmethod
     def generationObject(cls, gen_type):
-        gen_cls = lookup.GENERATION_LOOKUP.get(gen_type, None)
+        gen_cls = lookup.QUESTION_LOOKUP.get(gen_type, None)
         if gen_cls is None: return None
         return gen_cls()
 

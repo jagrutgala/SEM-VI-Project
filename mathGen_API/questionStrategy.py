@@ -139,7 +139,7 @@ class LCMQuestionType1(QuestionType):
     def generate_question(self, number_gen_obj):
         format_string = f" {self.operator} ".join(["{}" for _ in range(self.number_of_nums)])
         num_list = number_gen_obj.numbers(self.number_of_nums)
-        question_string = format_string.format(*num_list)
+        question_string = "Find LCM of: " + format_string.format(*num_list)
         return Question(question_string, self.findLCM(num_list), self.Q_TYPE.title())
     
     def findLCM(self, num_list):
@@ -157,7 +157,7 @@ class HCFQuestionType1(QuestionType):
     def generate_question(self, number_gen_obj):
         format_string = f" {self.operator} ".join(["{}" for _ in range(self.number_of_nums)])
         num_list = number_gen_obj.numbers(self.number_of_nums)
-        question_string = format_string.format(*num_list)
+        question_string = "Find HCF of: " + format_string.format(*num_list)
         return Question(question_string, self.findHCF(num_list),self.Q_TYPE.title())
 
     def findHCF(self, num_list):
@@ -184,7 +184,7 @@ class HCFQuestionType1(QuestionType):
 class QuadraticQuestionType1(QuestionType):
     Q_TYPE = "quadratic type1"
     def generate_question(self, number_gen_obj):
-        format_string = "{}x^2 + {}x + {} = 0"
+        format_string = "{}x^2 - {}x + {} = 0"
         roots = number_gen_obj.numbers(2)
         coefficient = [1, sum(roots), math.prod(roots)]
         question_string = format_string.format(*coefficient)
@@ -271,8 +271,8 @@ if __name__ == "__main__":
     
     def main():
         import numberGen
-        gen_obj = DivisionQuestionType1(3)
-        question:Question = gen_obj.generate_question(numberGen.RangedIntegerNumberGenerator(50, 100))
+        gen_obj = QuadraticQuestionType1()
+        question:Question = gen_obj.generate_question(numberGen.RangedIntegerNumberGenerator(1, 25))
         print(f"{question.type}")
         print(f"{question}")
         print()
