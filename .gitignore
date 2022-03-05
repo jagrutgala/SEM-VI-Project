@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,flask,angular,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,flask,angular,node
 
+### VSCode ###
+.vscode/
+
 ### Angular ###
 ## Angular ##
 # compiled output
