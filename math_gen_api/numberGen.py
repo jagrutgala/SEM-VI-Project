@@ -40,6 +40,7 @@ class RangedIntegerNumberGenerator(NumberGenerator):
             num_list.append(self.number(is_negative, is_zero))
         return num_list
 
+
 class RangedFloatingNumberGenerator(NumberGenerator):
     def __init__(self, lower_limit=1, upper_limit=1000) -> None:
         super().__init__(lower_limit, upper_limit)

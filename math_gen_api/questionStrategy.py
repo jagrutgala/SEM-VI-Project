@@ -144,7 +144,6 @@ class LCMQuestionType1(QuestionType):
     
     def findLCM(self, num_list):
         return 1
-    
 
 class HCFQuestionType1(QuestionType):
     Q_TYPE = "hcf type1"
