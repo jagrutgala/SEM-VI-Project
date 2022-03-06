@@ -4,8 +4,14 @@ from typing import Optional, Callable
 
 # Third-party imports
 
+# Sys-Paths for Relative Imports
+import sys
+from os.path import dirname, abspath
+package_path = dirname(dirname(abspath(__file__)))
+if(package_path not in sys.path): sys.path.insert(0, package_path)
+
 # Relative imports
-import number_generator
+from number_gen import number_generator
 
 def floatRanged(num_func:Callable):
     """Decorator for number method in FloatingNumberGenerators

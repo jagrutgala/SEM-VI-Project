@@ -1,14 +1,24 @@
+# question_strategies/question.py
 # In-built imports
+import sys
+from os.path import dirname, abspath
 from abc import ABC, abstractmethod
+from typing import Union
 # import json, xml
 
 # Third-party imports
 
+# Sys-Paths for Relative Imports
+import sys
+from os.path import dirname, abspath
+package_path = dirname(dirname(abspath(__file__)))
+if(package_path not in sys.path): sys.path.insert(0, package_path)
+
 # Relative imports
 
+from number_gen import integer_number, floating_number
 
-
-print("question")
+numGenType = Union[integer_number.RangedIntegerNumberGenerator, floating_number.RangedFloatingNumberGenerator]
 
 class Question:
     """This is a Generic Question class

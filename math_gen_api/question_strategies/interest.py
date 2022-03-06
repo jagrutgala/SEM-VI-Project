@@ -1,9 +1,16 @@
+# question_strategies/interest.py
 # In-built imports
 
 # Third-party imports
 
+# Sys-Paths for Relative Imports
+import sys
+from os.path import dirname, abspath
+package_path = dirname(dirname(abspath(__file__)))
+if(package_path not in sys.path): sys.path.insert(0, package_path)
+
 # Relative imports
-import question
+from question_strategies import question
 
 class SimpleInterestQuestionType1(question.QuestionType):
     Q_TYPE = "simple interest type1"

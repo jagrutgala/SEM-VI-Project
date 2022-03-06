@@ -4,8 +4,14 @@ from typing import Callable, Optional
 
 # Third-party imports
 
+# Sys-Paths for Relative Imports
+import sys
+from os.path import dirname, abspath
+package_path = dirname(dirname(abspath(__file__)))
+if(package_path not in sys.path): sys.path.insert(0, package_path)
+
 # Relative imports
-import number_generator
+from number_gen import number_generator
 
 def intRanged(num_func:Callable):
     """Decorator for number method in IntegerNumberGenerators
@@ -42,6 +48,7 @@ class RangedIntegerNumberGenerator(number_generator.RangedNumberGenerator):
         return num
 
 if __name__ == "__main__":
-    # Code Here
-    rint = RangedIntegerNumberGenerator(lower_limit=10, upper_limit=20)
-    print(rint.number(is_zero=True))
+    def main():
+        # Code Here
+        ...
+    main()
