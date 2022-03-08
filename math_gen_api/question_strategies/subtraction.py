@@ -1,6 +1,7 @@
 # question_strategies/subtraction.py
 # In-built imports
 import random
+from typing import Type, Union
 
 # Third-party imports
 
@@ -27,7 +28,7 @@ class SubtractionQuestionType1(question.QuestionType):
         num_list = [self.number_generator_obj.number() for _ in range(self.number_of_nums)]
         first_num = sum(num_list) + self.number_generator_obj.number()
         question_string = format_string.format(first_num, *num_list)
-        return question.Question(question_string, eval(question_string), self.Q_TYPE.title())
+        return question.Question(question_string, eval(question_string), self.Q_TYPE)
 
 class SubtractionQuestionType2(question.QuestionType):
     Q_TYPE = "Subtraction_Type2"
@@ -38,12 +39,12 @@ class SubtractionQuestionType2(question.QuestionType):
         if number_of_nums < 2: raise Exception("number_of_nums must be 2 or greater")
         self.number_of_nums = number_of_nums
 
-    def generate_question(self, number_gen_obj):
+    def generate_question(self):
         format_string = f" {self.operator} ".join(["{}" for _ in range(self.number_of_nums)])
         num_list = [self.number_generator_obj.number() for _ in range(self.number_of_nums)]
         first_num = sum(num_list) + self.number_generator_obj.number(is_negative=True)
         question_string = format_string.format(first_num, *num_list)
-        return question.Question(question_string, eval(question_string), self.Q_TYPE.title())
+        return question.Question(question_string, eval(question_string), self.Q_TYPE)
 
 class SubtractionQuestionType3(question.QuestionType):
     Q_TYPE = "Subtraction_Type3"
@@ -52,6 +53,7 @@ class SubtractionQuestionType3(question.QuestionType):
         self.number_generator_obj = number_generator_cls
         self.operator = "-"
         if number_of_nums < 2: raise Exception("number_of_nums must be 2 or greater")
+        if (number_of_nums % 2) != 0: raise Exception("number_of_nums must be even")
         self.number_of_nums = number_of_nums
 
     def generate_question(self):
@@ -62,7 +64,7 @@ class SubtractionQuestionType3(question.QuestionType):
         question_string = format_string.format(*num_list)
         return question.Question(question_string, eval(question_string), self.Q_TYPE.title())
 
-TYPE_LOOKUP = {
+TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
     1: SubtractionQuestionType1,
     2: SubtractionQuestionType2,
     3: SubtractionQuestionType3

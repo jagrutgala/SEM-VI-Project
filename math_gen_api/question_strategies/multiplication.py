@@ -1,6 +1,7 @@
 # question_strategies/multiplication.py
 # In-built imports
 import random
+from typing import Type, Union
 
 # Third-party imports
 
@@ -18,7 +19,7 @@ class MultiplicationQuestionType1(question.QuestionType):
     def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls
-        self.operator = "-"
+        self.operator = "*"
         if number_of_nums < 2: raise Exception("number_of_nums must be 2 or greater")
         self.number_of_nums = number_of_nums
 
@@ -33,7 +34,7 @@ class MultiplicationQuestionType2(question.QuestionType):
     def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls
-        self.operator = "-"
+        self.operator = "*"
         if number_of_nums < 2: raise Exception("number_of_nums must be 2 or greater")
         self.number_of_nums = number_of_nums
 
@@ -45,7 +46,7 @@ class MultiplicationQuestionType2(question.QuestionType):
         question_string = format_string.format(*num_list)
         return question.Question(question_string, eval(question_string), self.Q_TYPE.title())
 
-TYPE_LOOKUP = {
+TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
     1: MultiplicationQuestionType1,
     2: MultiplicationQuestionType2
 }

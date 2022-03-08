@@ -80,5 +80,5 @@ class QuestionType(ABC):
         ABC (_type_): abstract base class
     """
     @abstractmethod
-    def generate_question(self):
+    def generate_question(self) -> Question:
         ...

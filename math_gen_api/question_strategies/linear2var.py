@@ -1,5 +1,6 @@
 # question_strategies/linear2var.py
 # In-built imports
+from typing import Type
 
 # Third-party imports
 
@@ -38,6 +39,6 @@ class Linear2VarQuestionType1(question.QuestionType):
             c*= -1
         return [a, b, c]
 
-TYPE_LOOKUP = {
+TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
     1: Linear2VarQuestionType1
 }

@@ -12,7 +12,7 @@ if(package_path not in sys.path): sys.path.insert(0, package_path)
 # Relative imports
 from number_gen import integer_number
 
-class TestRangedIntegerNumberGenerator(unittest.TestCase):
+class TestRangedFloatingNumberGenerator(unittest.TestCase):
     def test_generator_range(self):
         ...
     def test_number(self):
