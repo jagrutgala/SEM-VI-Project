@@ -16,6 +16,9 @@ from question_strategies import question
 
 class SubtractionQuestionType1(question.QuestionType):
     Q_TYPE = "Subtraction_Type1"
+    INIT_VARIABLES= {
+        "number_of_nums": "int"
+    }
     def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls
@@ -32,6 +35,9 @@ class SubtractionQuestionType1(question.QuestionType):
 
 class SubtractionQuestionType2(question.QuestionType):
     Q_TYPE = "Subtraction_Type2"
+    INIT_VARIABLES= {
+        "number_of_nums": "int"
+    }
     def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls
@@ -48,7 +54,10 @@ class SubtractionQuestionType2(question.QuestionType):
 
 class SubtractionQuestionType3(question.QuestionType):
     Q_TYPE = "Subtraction_Type3"
-    def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int) -> None:
+    INIT_VARIABLES= {
+        "number_of_nums": "int"
+    }
+    def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int=2) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls
         self.operator = "-"

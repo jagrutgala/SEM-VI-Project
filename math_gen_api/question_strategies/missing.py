@@ -15,7 +15,10 @@ from question_strategies import question
 
 class MissingFactorsQuestionType1(question.QuestionType):
     Q_TYPE = "Missing_Factors_Type1"
-    def generate_question(self, gen_type):
+    INIT_VARIABLES= {
+        "number_of_nums": "int"
+    }
+    def generate_question(self):
         pass
 
 TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {

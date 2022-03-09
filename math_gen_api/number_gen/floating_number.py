@@ -48,5 +48,5 @@ class RangedFloatingNumberGenerator(number_generator.RangedNumberGenerator):
 
     @floatRanged
     def number(self):
-        num = random.uniform(float(self.lower_limit), float(self.upper_limit))
+        num = random.uniform(float(self.__lower_limit), float(self.__upper_limit))
         return num

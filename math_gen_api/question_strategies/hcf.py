@@ -15,7 +15,10 @@ from question_strategies import question
 
 class HCFQuestionType1(question.QuestionType):
     Q_TYPE = "HCF_Type1"
-    def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int) -> None:
+    INIT_VARIABLES= {
+        "number_of_nums": "int"
+    }
+    def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int=2) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls
         self.operator = ","

@@ -36,16 +36,27 @@ class RangedNumberGenerator(NumberGenerator, ABC):
         ABC (_type_): abstract base class
     """
     def __init__(self, lower_limit:numberType, upper_limit:numberType) -> None:
-        self.lower_limit = lower_limit
-        self.upper_limit = upper_limit
-        self.is_negative = False
-        self.is_zero = False
+        if lower_limit > upper_limit: raise Exception("Lower Limit should be smaller than Upper Limit")
+        self.__lower_limit = lower_limit
+        self.__upper_limit = upper_limit
 
-    def setIsNegative(self, neg:bool):
-        self.is_negative = neg
+    @property
+    def lower_limit(self):
+        return self.__lower_limit
 
-    def setIsZero(self, zero:bool):
-        self.is_zero = zero
+    @lower_limit.setter
+    def lower_limit(self, ll):
+        if ll > self.upper_limit: raise Exception("Lower Limit should be smaller than Upper Limit")
+        self.__lower_limit = ll
+
+    @property
+    def upper_limit(self):
+        return self.__upper_limit
+
+    @upper_limit.setter
+    def upper_limit(self, ul):
+        if ul < self.lower_limit: raise Exception("Upper Limit should be larger than Lower Limit")
+        self.__upper_limit = ul
 
     @abstractmethod
     def number(self):

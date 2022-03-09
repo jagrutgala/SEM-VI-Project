@@ -16,7 +16,10 @@ from question_strategies import question
 
 class MultiplicationQuestionType1(question.QuestionType):
     Q_TYPE = "Multiplication_Type1"
-    def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int) -> None:
+    INIT_VARIABLES= {
+        "number_of_nums": "int"
+    }
+    def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int=2) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls
         self.operator = "*"
@@ -31,6 +34,9 @@ class MultiplicationQuestionType1(question.QuestionType):
 
 class MultiplicationQuestionType2(question.QuestionType):
     Q_TYPE = "Multiplication_Type2"
+    INIT_VARIABLES= {
+        "number_of_nums": "int"
+    }
     def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls

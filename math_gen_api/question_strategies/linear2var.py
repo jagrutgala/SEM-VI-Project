@@ -15,6 +15,7 @@ from question_strategies import question
 
 class Linear2VarQuestionType1(question.QuestionType):
     Q_TYPE = "Linear_2_Var_Type1"
+    INIT_VARIABLES= {}
     def __init__(self, number_generator_cls:question.numGenType) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls

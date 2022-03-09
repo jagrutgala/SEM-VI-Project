@@ -31,6 +31,7 @@ class DivisionQuestionType1(question.QuestionType):
 
 class DivisionQuestionType2(question.QuestionType):
     Q_TYPE = "Division_Type2"
+    INIT_VARIABLES= {}
     def __init__(self, number_generator_cls:question.numGenType) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls

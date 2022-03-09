@@ -1,6 +1,6 @@
 # math_gen_api/question_generator.py
 # In-built imports
-from typing import Any, Optional, TypeVar, Union, Type
+from typing import Any, Optional, Type
 
 # Third-party imports
 

@@ -16,6 +16,7 @@ from question_strategies import question
 
 class QuadraticQuestionType1(question.QuestionType):
     Q_TYPE = "Quadratic_Type1"
+    INIT_VARIABLES= {}
     def __init__(self, number_generator_cls:question.numGenType) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls

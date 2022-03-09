@@ -1,6 +1,7 @@
 # math_gen_api/main.py
 
 # In-built imports
+from pydoc_data.topics import topics
 from typing import Any, Dict, Optional, Tuple
 
 # Third-party imports
@@ -14,7 +15,7 @@ package_path = dirname(dirname(abspath(__file__)))
 if(package_path not in sys.path): sys.path.insert(0, package_path)
 
 # Relative imports
-from math_gen_api.question_generator import Question_Generator
+from math_gen_api.question_generator import COMBINE_LOOKUP, Question_Generator
 from question_strategies import question
 
 ##############################
@@ -40,6 +41,20 @@ def createErrorResponse(err_message, err_code):
 @app.route("/", methods=["GET"])
 def index(): # url navigation info
     return render_template("index.html")
+
+@app.route("/available topics", methods=["GET", "OPTIONS"])
+def topicOptions():
+    options = COMBINE_LOOKUP.keys()
+    if options == None: return createErrorResponse("Invalid Topic", 404)
+    return jsonify(list(options))
+
+@app.route("/available types", methods=["GET", "OPTIONS"])
+def typeOptions():
+    q_topic = request.args.get("topic")
+    if q_topic == None: return createErrorResponse("Invalid Argument", 400)
+    options = COMBINE_LOOKUP.get(q_topic)
+    if options == None: return createErrorResponse("Invalid Topic", 404)
+    return jsonify(list(range(1, len(options)+1)))
 
 ##############################
 # Question Routes
