@@ -19,7 +19,7 @@ class SubtractionQuestionType1(question.QuestionType):
     INIT_VARIABLES= {
         "number_of_nums": "int"
     }
-    def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int) -> None:
+    def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int=2) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls
         self.operator = "-"
@@ -38,7 +38,7 @@ class SubtractionQuestionType2(question.QuestionType):
     INIT_VARIABLES= {
         "number_of_nums": "int"
     }
-    def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int) -> None:
+    def __init__(self, number_generator_cls:question.numGenType, number_of_nums:int=2) -> None:
         super().__init__()
         self.number_generator_obj = number_generator_cls
         self.operator = "-"

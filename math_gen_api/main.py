@@ -26,11 +26,10 @@ app.config["ENV"] = "development"
 
 # global question generator factory
 
-def readRequestData(req_data) -> Tuple[int, int, dict[str, Any]]:
+def readRequestData(req_data) -> Tuple[int, int]:
     type_ = req_data.get("type", 1)
     noq = req_data.get("noq", 1)
-    params = req_data.get("params", {})
-    return (type_, noq, params)
+    return (type_, noq)
 
 def createErrorResponse(err_message, err_code):
     return Response(err_message, err_code)
@@ -61,18 +60,23 @@ def typeOptions():
 ##############################
 @app.route("/question")
 def questionRoute():
-    json_data = request.get_json()
-    if json_data == None: return render_template("question_docs.html")
-    q_topic:str = json_data.get("q_topic", None)
-    q_type:int = json_data.get("q_type", None)
-    noq:int = json_data.get("noq", 1)
-    ll:Optional[int] = json_data.get("ll", None)
-    ul:Optional[int] = json_data.get("ul", None)
-    args:Optional[Dict[str, Any]] = json_data.get("args", None)
+    request_data = request.get_json()
+    # if request_data == None: return createErrorResponse("Bad Request", 400)
+    if request_data == None: request_data = request.args.to_dict()
+    if request_data is None : return render_template("question_docs.html")
+    print("request_data", request_data)
+    q_topic:str = request_data.get("q_topic", None)
+    q_type:int = request_data.get("q_type", None)
+    if q_type != None: q_type= int(q_type)
+    noq:int = int(request_data.get("noq", 1))
+    ll:Optional[int] = request_data.get("ll", None)
+    if ll != None: ll= int(ll)
+    ul:Optional[int] = request_data.get("ul", None)
+    if ul != None: ul= int(ul)
     if not all((q_topic,q_type)): return createErrorResponse("Error - Bad Request", 400)
     question_list:list = []
     for _ in range(noq):
-        question_generator:Optional[question.QuestionType] = Question_Generator(q_topic, q_type, ll, ul, args)
+        question_generator:Optional[question.QuestionType] = Question_Generator(q_topic, q_type, ll, ul)
         if question_generator == None: return createErrorResponse("Error - Bad Arguments 1", 400)
         try:
             q:question.Question = question_generator.generate_question()

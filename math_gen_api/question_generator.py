@@ -7,13 +7,14 @@ from typing import Any, Optional, Type
 # Sys-Paths for Relative Imports
 import sys
 from os.path import dirname, abspath
-from math_gen_api.question_strategies import missing
 package_path = dirname(abspath(__file__))
 if(package_path not in sys.path): sys.path.insert(0, package_path)
 
 # Relative imports
 from number_gen import integer_number
-from question_strategies import question, addition, subtraction, multiplication, division, lcm, hcf, quadratic, linear2var, missing
+from question_strategies import addition, subtraction, multiplication, division
+from question_strategies import lcm, hcf, quadratic, linear2var, missing, square, factorial
+from question_strategies import permutation, combination , fibonacci, profit, loss
 
 COMBINE_LOOKUP:dict[str, dict[int, Type[Any]]] = {
     "addition": addition.TYPE_LOOKUP,
@@ -24,16 +25,20 @@ COMBINE_LOOKUP:dict[str, dict[int, Type[Any]]] = {
     "hcf": hcf.TYPE_LOOKUP,
     "quadratic": quadratic.TYPE_LOOKUP,
     "linear2var": linear2var.TYPE_LOOKUP,
-    "missing": missing.TYPE_LOOKUP
+    "missing": missing.TYPE_LOOKUP,
+    "square": square.TYPE_LOOKUP,
+    "factorial": factorial.TYPE_LOOKUP,
+    "permutation": permutation.TYPE_LOOKUP,
+    "combination": combination.TYPE_LOOKUP,
+    "fibonacci": fibonacci.TYPE_LOOKUP,
+    "profit": profit.TYPE_LOOKUP,
+    "loss": loss.TYPE_LOOKUP
 }
 
 
-def Question_Generator(q_topic:str, q_type:int, ll:Optional[int], ul:Optional[int], args):
+def Question_Generator(q_topic:str, q_type:int, ll:Optional[int], ul:Optional[int]):
     question_generator_cls = COMBINE_LOOKUP.get(q_topic, {}).get(q_type, None)
     if question_generator_cls == None: return None
-    if args == None:
-        question_generator = question_generator_cls(integer_number.RangedIntegerNumberGenerator(ll, ul))
-    else:
-        question_generator = question_generator_cls(integer_number.RangedIntegerNumberGenerator(ll, ul), **args)
+    question_generator = question_generator_cls(integer_number.RangedIntegerNumberGenerator(ll, ul))
     return question_generator
 

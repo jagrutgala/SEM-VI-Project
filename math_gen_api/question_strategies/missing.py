@@ -19,7 +19,7 @@ class MissingFactorsQuestionType1(question.QuestionType):
         "number_of_nums": "int"
     }
     def generate_question(self):
-        pass
+        ...
 
 TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
     1: MissingFactorsQuestionType1

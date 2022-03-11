@@ -1,15 +1,17 @@
 import requests
 
 question_options ={
-    "q_topic": "hcf",
+    "q_topic": "addition",
     "q_type": 1,
-    "noq": 10,
-    "args": {"number_of_nums": 2},
+    "noq": 5,
+    "ll": 10,
     "ul": 20
 }
 
 def question_request(question_options:dict):
     response_data = requests.get(f"http://127.0.0.1:5000/question", json=question_options)
+    # response_data = requests.get(f"http://127.0.0.1:5000/question", params=question_options)
+    print(response_data.request.url)
     if not response_data.ok:
         print(response_data.text)
     for r in response_data.json():
@@ -31,4 +33,6 @@ def type_request(type_:str):
 
 if __name__ == "__main__":
     # Code Here
-    question_request(question_options)
+    # question_request(question_options)
+    topic_request()
+    type_request("square")
