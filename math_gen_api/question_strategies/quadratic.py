@@ -41,6 +41,6 @@ class QuadraticQuestionType1(question.QuestionType):
 #         question_string = format_string.format(*coefficient)
 #         return question.Question(question_string, roots, self.Q_TYPE.title())
 
-TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
-    1: QuadraticQuestionType1
+TYPE_LOOKUP:dict[str, Type[question.QuestionType]] = {
+    "normal": QuadraticQuestionType1
 }

@@ -47,6 +47,6 @@ class HCFQuestionType1(question.QuestionType):
             return hcf
         return gcdArray(num_list)
 
-TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
-    1: HCFQuestionType1
+TYPE_LOOKUP:dict[str, Type[question.QuestionType]] = {
+    "normal": HCFQuestionType1
 }

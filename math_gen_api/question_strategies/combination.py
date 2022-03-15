@@ -27,13 +27,12 @@ class CombinationQuestionType1(question.QuestionType):
         self.number_of_nums = number_of_nums
 
     def generate_question(self) -> question.Question:
-        ...
-        # format_string = f" {self.operator} ".join(["{}" for _ in range(self.number_of_nums)])
-        # num_list = [self.number_generator_obj.number() for _ in range(self.number_of_nums)]
-        # question_string = format_string.format(*num_list)
-        # return question.Question(question_string, eval(question_string), self.Q_TYPE)
+        n ,r = sorted([self.number_generator_obj.number() for i in range(2)], reverse=True)
+        c = math.factorial(n) / math.factorial(r) * math.factorial(n - r)
+        question_string = f"Find the number of combinations when n={n} and r={r}"
+        return question.Question(question_string, c, self.Q_TYPE)
 
-TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
-    1: CombinationQuestionType1
+TYPE_LOOKUP:dict[str, Type[question.QuestionType]] = {
+    "normal": CombinationQuestionType1
 }
 

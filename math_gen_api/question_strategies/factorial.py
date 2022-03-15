@@ -30,11 +30,11 @@ class FactorialQuestionType1(question.QuestionType):
         format_string = f"Find Factorial of: " + f"{self.operator}".join(["{}" for _ in range(self.number_of_nums)])
         num_list = [self.number_generator_obj.number() for _ in range(self.number_of_nums)]
         question_string = format_string.format(*num_list)
-        return question.Question(question_string, self.sq(num_list), self.Q_TYPE)
+        return question.Question(question_string, self.fact(num_list), self.Q_TYPE)
 
-    def sq(self, num_list):
+    def fact(self, num_list):
         return [math.factorial(i) for i in num_list]
 
-TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
-    1: FactorialQuestionType1
+TYPE_LOOKUP:dict[str, Type[question.QuestionType]] = {
+    "normal": FactorialQuestionType1
 }

@@ -31,21 +31,7 @@ class AdditionQuestionType1(question.QuestionType):
         question_string = format_string.format(*num_list)
         return question.Question(question_string, eval(question_string), self.Q_TYPE)
 
-TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
-    1: AdditionQuestionType1
+TYPE_LOOKUP:dict[str, Type[question.QuestionType]] = {
+    "positive": AdditionQuestionType1
 }
 
-if __name__ == "__main__":
-    # Code Here
-    import sys
-    from os.path import dirname, abspath
-    package_path = dirname(dirname(abspath(__file__)))
-    if(package_path not in sys.path): sys.path.insert(0, package_path)
-
-    def main():
-        from number_gen.integer_number import RangedIntegerNumberGenerator
-        add_question_type = AdditionQuestionType1(RangedIntegerNumberGenerator(1, 9), 2)
-        my_question:question.Question = add_question_type.generate_question()
-        print(my_question)
-
-    main()

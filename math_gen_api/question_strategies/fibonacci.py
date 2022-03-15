@@ -53,6 +53,6 @@ class FibonacciQuestionType1(question.QuestionType):
                 continue
         return new_list
 
-TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
-    1: FibonacciQuestionType1
+TYPE_LOOKUP:dict[str, Type[question.QuestionType]] = {
+    "nth term": FibonacciQuestionType1
 }

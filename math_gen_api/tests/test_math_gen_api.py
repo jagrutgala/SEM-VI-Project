@@ -1,16 +1,16 @@
 import requests
 
 question_options ={
-    "q_topic": "addition",
-    "q_type": 1,
-    "noq": 5,
+    "q_topic": "linear2var",
+    "q_type": "normal",
+    "noq": 12,
     "ll": 10,
-    "ul": 20
+    "ul": 28
 }
 
 def question_request(question_options:dict):
-    response_data = requests.get(f"http://127.0.0.1:5000/question", json=question_options)
-    # response_data = requests.get(f"http://127.0.0.1:5000/question", params=question_options)
+    # response_data = requests.get(f"http://127.0.0.1:5000/question", json=question_options)
+    response_data = requests.get(f"http://127.0.0.1:5000/question", params=question_options)
     print(response_data.request.url)
     if not response_data.ok:
         print(response_data.text)
@@ -33,6 +33,6 @@ def type_request(type_:str):
 
 if __name__ == "__main__":
     # Code Here
-    # question_request(question_options)
-    topic_request()
-    type_request("square")
+    question_request(question_options)
+    # topic_request()
+    # type_request("square")

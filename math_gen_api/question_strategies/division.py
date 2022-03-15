@@ -60,8 +60,8 @@ class DivisionQuestionType3(question.QuestionType):
         question_string = format_string.format(*num_list)
         return question.Question(question_string, eval(question_string), self.Q_TYPE.title())
 
-TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
-    1: DivisionQuestionType1,
-    2: DivisionQuestionType2,
-    3: DivisionQuestionType3
+TYPE_LOOKUP:dict[str, Type[question.QuestionType]] = {
+    "positive": DivisionQuestionType1,
+    "negative": DivisionQuestionType2,
+    "double negative": DivisionQuestionType3
 }

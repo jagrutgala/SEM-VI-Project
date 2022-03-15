@@ -13,10 +13,10 @@ if(package_path not in sys.path): sys.path.insert(0, package_path)
 # Relative imports
 from number_gen import integer_number
 from question_strategies import addition, subtraction, multiplication, division
-from question_strategies import lcm, hcf, quadratic, linear2var, missing, square, factorial
+from question_strategies import lcm, hcf, quadratic, linear2var, factors, square, factorial
 from question_strategies import permutation, combination , fibonacci, profit, loss
 
-COMBINE_LOOKUP:dict[str, dict[int, Type[Any]]] = {
+COMBINE_LOOKUP:dict[str, dict[str, Type[Any]]] = {
     "addition": addition.TYPE_LOOKUP,
     "subtraction": subtraction.TYPE_LOOKUP,
     "multiplication": multiplication.TYPE_LOOKUP,
@@ -25,7 +25,7 @@ COMBINE_LOOKUP:dict[str, dict[int, Type[Any]]] = {
     "hcf": hcf.TYPE_LOOKUP,
     "quadratic": quadratic.TYPE_LOOKUP,
     "linear2var": linear2var.TYPE_LOOKUP,
-    "missing": missing.TYPE_LOOKUP,
+    "factors": factors.TYPE_LOOKUP,
     "square": square.TYPE_LOOKUP,
     "factorial": factorial.TYPE_LOOKUP,
     "permutation": permutation.TYPE_LOOKUP,
@@ -36,7 +36,7 @@ COMBINE_LOOKUP:dict[str, dict[int, Type[Any]]] = {
 }
 
 
-def Question_Generator(q_topic:str, q_type:int, ll:Optional[int], ul:Optional[int]):
+def Question_Generator(q_topic:str, q_type:str, ll:Optional[int], ul:Optional[int]):
     question_generator_cls = COMBINE_LOOKUP.get(q_topic, {}).get(q_type, None)
     if question_generator_cls == None: return None
     question_generator = question_generator_cls(integer_number.RangedIntegerNumberGenerator(ll, ul))

@@ -40,6 +40,6 @@ class Linear2VarQuestionType1(question.QuestionType):
             c*= -1
         return [a, b, c]
 
-TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
-    1: Linear2VarQuestionType1
+TYPE_LOOKUP:dict[str, Type[question.QuestionType]] = {
+    "normal": Linear2VarQuestionType1
 }

@@ -52,7 +52,7 @@ class MultiplicationQuestionType2(question.QuestionType):
         question_string = format_string.format(*num_list)
         return question.Question(question_string, eval(question_string), self.Q_TYPE.title())
 
-TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
-    1: MultiplicationQuestionType1,
-    2: MultiplicationQuestionType2
+TYPE_LOOKUP:dict[str, Type[question.QuestionType]] = {
+    "positive": MultiplicationQuestionType1,
+    "negative": MultiplicationQuestionType2
 }

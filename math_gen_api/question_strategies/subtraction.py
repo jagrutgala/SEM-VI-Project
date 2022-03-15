@@ -68,13 +68,13 @@ class SubtractionQuestionType3(question.QuestionType):
     def generate_question(self):
         format_string = f" {self.operator} ".join(["{}" for _ in range(self.number_of_nums)])
         num_list = [self.number_generator_obj.number() for _ in range(self.number_of_nums//2)]
-        num_list += [-n for n in num_list]
+        num_list += [n for n in num_list]
         random.shuffle(num_list)
         question_string = format_string.format(*num_list)
         return question.Question(question_string, eval(question_string), self.Q_TYPE.title())
 
-TYPE_LOOKUP:dict[int, Type[question.QuestionType]] = {
-    1: SubtractionQuestionType1,
-    2: SubtractionQuestionType2,
-    3: SubtractionQuestionType3
+TYPE_LOOKUP:dict[str, Type[question.QuestionType]] = {
+    "positive": SubtractionQuestionType1,
+    "negative": SubtractionQuestionType2,
+    "zeros": SubtractionQuestionType3
 }
